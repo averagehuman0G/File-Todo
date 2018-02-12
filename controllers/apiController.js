@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 module.exports = function(app) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+
   app.get('/api/todos/:user', function(req, res) {
     Todos.find({ username: req.params.user }, function(err, todos) {
       if (err) throw err;
@@ -12,7 +13,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/api/todos/:id', function(req, res) {
+  app.get('/api/todo/:id', function(req, res) {
     Todos.findById({ _id: req.params.id }, function(err, todo) {
       if (err) throw err;
 
@@ -22,14 +23,14 @@ module.exports = function(app) {
 
   app.post('/api/todos', function(req, res) {
     if (req.body.id) {
-      Todo.findByIdAndUpdate(
+      Todos.findByIdAndUpdate(
         req.body.id,
         {
           todo: req.body.todo,
           isDone: req.body.isDone,
           fileAttachment: req.body.fileAttachment,
         },
-        function(err, res) {
+        function(err, todo) {
           if (err) throw err;
           res.send('success');
         },
@@ -48,7 +49,7 @@ module.exports = function(app) {
     }
   });
 
-  app.delete('/api/todos', function(req, res) {
+  app.delete('/api/todo', function(req, res) {
     Todos.findByIdAndRemove(req.body.id, function(err) {
       if (err) throw err;
       res.send('Deleted');
