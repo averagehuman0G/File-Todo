@@ -7,19 +7,19 @@ module.exports = function(app) {
         username: 'userOne',
         todo: 'code some more',
         isDone: true,
-        hasAttachment: false,
+        fileAttachment: false,
       },
       {
         username: 'userTwo',
         todo: 'Take a break from coding',
         isDone: false,
-        hasAttachment: false,
+        fileAttachment: false,
       },
       {
         username: 'userThree',
         todo: 'Give a tech talk',
         isDone: true,
-        hasAttachment: false,
+        fileAttachment: false,
       },
     ];
     Todos.create(seedData, function(err, results) {
